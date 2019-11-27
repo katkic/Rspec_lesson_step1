@@ -1,0 +1,11 @@
+<div class="container">
+  <h1 class="page-title">タスクの新規登録</h1>
+
+  <%= link_to '一覧', tasks_path %>
+
+  <div class="task-form">
+    <%= render 'form', task: @task %>
+  </div><!-- /.task-form -->
+
+  <%= link_to '戻る', tasks_path %>
+</div><!-- /.container -->

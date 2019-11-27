@@ -9,7 +9,15 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <header class="page-header">
+    <h1>Taskpit</h1>
+  </header>
+
   <body>
+    <% if flash.notice.present? %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
