@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :task do
-    name { 'test_title' }
-    discription { 'test_discription' }
+    name { 'task_test' }
+    description { 'taskの登録テストです' }
   end
 end
