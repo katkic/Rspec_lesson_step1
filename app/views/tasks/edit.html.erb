@@ -1,0 +1,11 @@
+<div class="container">
+  <h1 class="page-title">タスクの編集</h1>
+
+  <%= link_to '一覧', tasks_path %>
+
+  <div class="task-form">
+    <%= render 'form', task: @task %>
+  </div><!-- /.task-form -->
+
+  <%= link_to '詳細', @task %>
+</div><!-- /.container -->

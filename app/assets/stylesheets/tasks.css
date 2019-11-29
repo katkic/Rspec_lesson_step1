@@ -1,0 +1,152 @@
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  font-family: 'YuGothic', 'Yu Gothic', 'Hiragino Kaku Gothic ProN',
+    'ヒラギノ角ゴ ProN W3', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, p, ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #666;
+}
+
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+th {
+  padding-bottom: 5px;
+}
+
+td {
+  padding: 0 5px 7px;
+}
+
+div.field,
+div.actions {
+  margin-bottom: 10px;
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px 7px 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px -7px 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+label {
+  display: block;
+}
+
+.page-header {
+  background: #233A61;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.notice {
+  text-align: center;
+  font-size: 14px;
+  color: green;
+  margin: 20px 0 10px;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.page-title {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.task-list {
+  margin-top: 10px;
+}
+
+.task-list th, td {
+  padding: 5px;
+}
+
+.task-form {
+  padding: 15px 0 15px;
+}
+
+.task-details-list {
+  margin: 15px 0 15px;
+}
+
+.task-details-list th {
+  text-align: left;
+  padding: 10px;
+}
+
+.task-details-list td {
+  width: 220px;
+  padding: 10px;
+}
+
+.page-footer {
+  margin-top: 50px;
+  background: #233A61;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.page-footer .footer-link {
+  color: #fff;
+}
