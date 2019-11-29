@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :task do
-    name { 'task_test' }
-    description { 'taskの登録テストです' }
+    sequence(:name) { |n| "task_#{n}" }
+    sequence(:description) { |n| "Factoryで作ったtask_#{n}です" }
   end
 end
