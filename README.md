@@ -25,10 +25,14 @@
 | ---------- | -----------| :------ |
 | ラベリングid | id         | integer |
 | タスクid    | task_id    | string  |
-| ラベルid    | label_id   | string  |
+| ラベルid    | label_id   | string  |
 
 ***
 # Herokuへのデプロイ方法
+
+- Ruby 2.6.5
+- Rails 5.2.3
+- PostgreSQL 12.1
 
 ## Herokuにログインする
 Herokuへアップロードしたいアプリのディレクトリへ移動し、`heroku login`を実
