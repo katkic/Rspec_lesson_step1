@@ -9,3 +9,4 @@ ja:
         description: 詳しい説明
         created_at: 登録日時
         updated_at: 更新日時
+        expired_at: 終了期限

@@ -21,6 +21,13 @@
     <%= form.text_area :description %>
   </div>
 
+  <div class="field">
+    <%= form.label :expired_at, for: 'task_expired_at_1i' %>
+    <%= form.datetime_select :expired_at,
+          start_year: Time.current.year, end_year: Time.current.year + 2,
+          use_month_numbers: true %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
