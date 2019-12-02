@@ -2,7 +2,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    @tasks =
+      if params[:sort_expired]
+        Task.order(expired_at: :desc)
+      else
+        Task.order(created_at: :desc)
+      end
   end
 
   def show
@@ -41,7 +46,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :expired_at)
   end
 
   def set_task

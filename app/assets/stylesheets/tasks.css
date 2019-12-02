@@ -154,3 +154,15 @@ label {
 .page-footer .footer-link {
   color: #fff;
 }
+
+.container .btn {
+  margin-right: 10px;
+  padding: 10px;
+  background: cornflowerblue;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.container .btn:hover {
+  background: #296eec;
+}
