@@ -16,6 +16,17 @@ $ heroku login
 ```
 $ heroku create
 ```
+## アセットプリコンパイルを実行する
+
+この操作を行わないと、Herokuの環境でアセットファイルが全て読み込まれない。
+開発環境では起動している時にアセットファイルをプリコンパイルして、そこでできた圧縮ファイルを読み込むが、本番環境では最初からあるアセットファイルしか読み込まれないため。
+
+```
+rails assets:precompile RAILS_ENV=production
+git add -A
+git commit -m "任意のコミットメッセージ"
+git push heroku master
+```
 
 ## Herokuにデプロイをする
 RailsアプリケーションをHerokuにデプロイするには、まずGitを使ってHerokuにリポジトリをプッシュする。
