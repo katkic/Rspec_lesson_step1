@@ -28,6 +28,11 @@
           use_month_numbers: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, create_statuses %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
