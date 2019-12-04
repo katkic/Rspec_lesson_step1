@@ -16,6 +16,7 @@ $ heroku login
 ```
 $ heroku create
 ```
+
 ## アセットプリコンパイルを実行する
 
 この操作を行わないと、Herokuの環境でアセットファイルが全て読み込まれない。
@@ -90,4 +91,4 @@ $ heroku config
 | ---------- | -----------| :------ |
 | ラベリングid | id         | integer |
 | タスクid    | task_id    | string  |
-| ラベルid    | label_id   | string  |
+| ラベルid    | label_id   | string  |
