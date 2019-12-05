@@ -43,6 +43,12 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "タスク「#{@task.name}」を削除しました"
   end
 
+  def search
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params)
+    render :index
+  end
+
   private
 
   def task_params
@@ -51,5 +57,9 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def task_search_params
+    params.fetch(:search, {}).permit(:name, :status, :expired_at)
   end
 end
