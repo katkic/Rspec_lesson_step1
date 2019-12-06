@@ -4,7 +4,7 @@
   <%= form_with scope: :search, method: :get, url: search_tasks_path, local: true do |f| %>
     <table>
       <tr>
-        <th><%= f.label :title_search, 'タイトル検索' %></th>
+        <th><%= f.label :name_search, '名称検索' %></th>
         <% if @search_params.present? %>
         <%# タスク検索後、入力値を初期値とする。 以下同じ %>
           <td><%= f.text_field :name, value: @search_params[:name] %></td>
