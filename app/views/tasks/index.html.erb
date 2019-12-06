@@ -6,6 +6,7 @@
       <tr>
         <th><%= f.label :title_search, 'タイトル検索' %></th>
         <% if @search_params.present? %>
+        <%# タスク検索後、入力値を初期値とする。 以下同じ %>
           <td><%= f.text_field :name, value: @search_params[:name] %></td>
         <% else %>
           <td><%= f.text_field :name %></td>
@@ -20,7 +21,15 @@
                   include_blank: true, selected: '' %></td>
         <% end %>
 
-        <td><%= f.submit '検索する', class: 'btn' %></td>
+        <th><%= f.label :expired_at_sort, '終了期限でソート' %></th>
+        <% if @search_params.present? %>
+          <% flag = true if @search_params[:expired_at] == 'true' %>
+          <td><%= f.check_box :expired_at, { checked: flag }, 'true', 'false' %></td>
+        <% else %>
+          <td><%= f.check_box :expired_at, {}, 'true', 'false' %></td>
+        <% end %>
+
+        <td><%= f.submit '実行する', class: 'btn' %></td>
       </tr>
     </table>
   <% end %>
