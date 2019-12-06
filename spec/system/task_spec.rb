@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     create(:task)
-    create(:second_task)
+    create(:task2)
+    create(:task3)
   end
 
   describe 'タスク一覧画面' do
@@ -32,6 +33,38 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         expect(task_list[0]).to have_content 'タスク1'
         expect(task_list[1]).to have_content 'タスク2'
+      end
+    end
+
+    context 'タスク名「テスト」で検索した場合' do
+      it 'タスク名「テスト」を含むタスクが表示されていること' do
+        visit tasks_path
+        fill_in 'search_name', with: 'テスト'
+        click_on '実行する'
+
+        expect(page).to have_content 'テスト'
+      end
+    end
+
+    context 'ステータスを「完了」で検索した場合' do
+      it 'ステータス「完了」のタスクが表示されていること' do
+        visit tasks_path
+        select '完了', from: 'search_status'
+        click_on '実行する'
+
+        expect(page).to have_content '完了'
+      end
+    end
+
+    context 'タスク名「テスト」ステータスを「完了」で検索した場合' do
+      it 'タスク名「テスト」ステータス「完了」のタスクが表示されていること' do
+        visit tasks_path
+        fill_in 'search_name', with: 'テスト'
+        select '完了', from: 'search_status'
+        click_on '実行する'
+
+        expect(page).to have_content 'テスト'
+        expect(page).to have_content '完了'
       end
     end
   end
