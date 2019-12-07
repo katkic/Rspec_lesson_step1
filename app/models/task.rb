@@ -18,7 +18,10 @@ class Task < ApplicationRecord
   scope :search, -> (search_params) do
     return if search_params.blank?
 
-    name_like(search_params[:name]).status_is(search_params[:status]).expired_sort(search_params[:expired_at]).priority_sort(search_params[:priority])
+    name_like(search_params[:name])
+      .status_is(search_params[:status])
+      .expired_sort(search_params[:expired_at])
+      .priority_sort(search_params[:priority])
   end
 
   scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present? }

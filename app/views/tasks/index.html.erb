@@ -21,12 +21,20 @@
                   include_blank: true, selected: '' %></td>
         <% end %>
 
-        <th><%= f.label :expired_at_sort, '終了期限でソート' %></th>
+        <th><%= f.label :expired_at, '終了期限でソート' %></th>
         <% if @search_params.present? %>
-          <% flag = true if @search_params[:expired_at] == 'true' %>
-          <td><%= f.check_box :expired_at, { checked: flag }, 'true', 'false' %></td>
+          <% expired_flag = true if @search_params[:expired_at] == 'true' %>
+          <td><%= f.check_box :expired_at, { checked: expired_flag }, 'true', 'false' %></td>
         <% else %>
           <td><%= f.check_box :expired_at, {}, 'true', 'false' %></td>
+        <% end %>
+
+        <th><%= f.label :priority, '優先順位でソート' %></th>
+        <% if @search_params.present? %>
+          <% priority_flag = true if @search_params[:priority] == 'true' %>
+          <td><%= f.check_box :priority, { checked: priority_flag }, 'true', 'false' %></td>
+        <% else %>
+          <td><%= f.check_box :priority, {}, 'true', 'false' %></td>
         <% end %>
 
         <td><%= f.submit '実行する', class: 'btn' %></td>
@@ -36,11 +44,13 @@
 
   <%= link_to '新規作成', new_task_path, class: 'btn' %>
   <%= link_to '終了期限でソート', tasks_path(sort_expired: true), class: 'btn' %>
+  <%= link_to '優先順位でソート', tasks_path(sort_priority: true), class: 'btn' %>
 
   <div class="task-list">
     <table>
       <thead>
         <tr>
+          <th>優先順位</th>
           <th>ステータス</th>
           <th>名称</th>
           <th>登録日時</th>
@@ -52,6 +62,7 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
+            <td><%= task.priority_i18n %></td>
             <td><%= task.status_i18n %></td>
             <td class="task_row"><%= task.name %></td>
             <td><%= task.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
