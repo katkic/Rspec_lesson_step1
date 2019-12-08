@@ -7,6 +7,8 @@ class TasksController < ApplicationController
         Task.order(:expired_at)
       elsif params[:sort_priority]
         Task.order(priority: :desc)
+      elsif params[:sort_created_at]
+        Task.order(created_at: :desc)
       else
         Task.order(created_at: :desc)
       end
