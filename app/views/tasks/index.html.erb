@@ -2,59 +2,58 @@
   <h1 class="page-title">タスク一覧</h1>
 
   <%= form_with scope: :search, method: :get, url: search_tasks_path, local: true do |f| %>
-    <table>
-      <tr>
-        <th><%= f.label :name_search, '名称検索' %></th>
-        <% if @search_params.present? %>
-        <%# タスク検索後、入力値を初期値とする。 以下同じ %>
-          <td><%= f.text_field :name, value: @search_params[:name] %></td>
-        <% else %>
-          <td><%= f.text_field :name %></td>
-        <% end %>
+    <div class="mb-3 ml-2">
+      <%= f.label :name_search, '名称検索' %>
+      <% if @search_params.present? %>
+      <%# タスク検索後、入力値を初期値とする。 以下同じ %>
+        <%= f.text_field :name, value: @search_params[:name] %>
+      <% else %>
+        <%= f.text_field :name %>
+      <% end %>
 
-        <th><%= f.label :status_search, 'ステータス検索' %></th>
-        <% if @search_params.present? %>
-          <td><%= f.select :status, Task.statuses_i18n.invert,
-                  include_blank: true, selected: @search_params[:status] %></td>
-        <% else %>
-          <td><%= f.select :status, Task.statuses_i18n.invert,
-                  include_blank: true, selected: '' %></td>
-        <% end %>
+      <%= f.label :status_search, 'ステータス検索' %>
+      <% if @search_params.present? %>
+        <%= f.select :status, Task.statuses_i18n.invert,
+                include_blank: true, selected: @search_params[:status] %>
+      <% else %>
+        <%= f.select :status, Task.statuses_i18n.invert,
+                include_blank: true, selected: '' %>
+      <% end %>
 
-        <th><%= f.label :expired_at, '終了期限でソート' %></th>
-        <% if @search_params.present? %>
-          <% expired_flag = true if @search_params[:expired_at] == 'true' %>
-          <td><%= f.check_box :expired_at, { checked: expired_flag }, 'true', 'false' %></td>
-        <% else %>
-          <td><%= f.check_box :expired_at, {}, 'true', 'false' %></td>
-        <% end %>
+      <%= f.label :expired_at, '終了期限でソート' %>
+      <% if @search_params.present? %>
+        <% expired_flag = true if @search_params[:expired_at] == 'true' %>
+        <%= f.check_box :expired_at, { checked: expired_flag }, 'true', 'false' %>
+      <% else %>
+        <%= f.check_box :expired_at, {}, 'true', 'false' %>
+      <% end %>
 
-        <th><%= f.label :priority, '優先順位でソート' %></th>
-        <% if @search_params.present? %>
-          <% priority_flag = true if @search_params[:priority] == 'true' %>
-          <td><%= f.check_box :priority, { checked: priority_flag }, 'true', 'false' %></td>
-        <% else %>
-          <td><%= f.check_box :priority, {}, 'true', 'false' %></td>
-        <% end %>
+      <%= f.label :priority, '優先順位でソート' %>
+      <% if @search_params.present? %>
+        <% priority_flag = true if @search_params[:priority] == 'true' %>
+        <%= f.check_box :priority, { checked: priority_flag }, 'true', 'false' %>
+      <% else %>
+        <%= f.check_box :priority, {}, 'true', 'false' %>
+      <% end %>
 
-        <td><%= f.submit '実行する', class: 'btn' %></td>
-      </tr>
-    </table>
-  <% end %>
-
-  <%= link_to '新規作成', new_task_path, class: 'btn' %>
-  <%= link_to '終了期限でソート', tasks_path(sort_expired: true), class: 'btn' %>
-  <%= link_to '優先順位でソート', tasks_path(sort_priority: true), class: 'btn' %>
+      <%= f.submit '実行する', class: 'btn btn-primary ml-3' %>
+    <% end %>
+  </div><!-- /.task-search -->
+  <div class="mb-4">
+    <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mx-2' %>
+    <%= link_to '終了期限でソート', tasks_path(sort_expired: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '優先順位でソート', tasks_path(sort_priority: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '登録順でソート', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
+  </div><!-- /.mb-3 -->
 
   <div class="task-list">
-    <table>
-      <thead>
-        <tr>
-          <th>優先順位</th>
-          <th>ステータス</th>
-          <th>名称</th>
-          <th>登録日時</th>
-          <th>終了期限</th>
+    <table class="table table-hover table-striped">
+      <thead class="thead-default">
+        <tr class="text-center">
+          <th><%= Task.human_attribute_name(:priority) %></th>
+          <th><%= Task.human_attribute_name(:status) %></th>
+          <th><%= Task.human_attribute_name(:name) %></th>
+          <th><%= Task.human_attribute_name(:expired_at) %></th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -62,14 +61,13 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <td><%= task.priority_i18n %></td>
-            <td><%= task.status_i18n %></td>
-            <td class="task_row"><%= task.name %></td>
-            <td><%= task.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
-            <td><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
-            <td><%= link_to '詳細', task %></td>
-            <td><%= link_to '編集', edit_task_path(task) %></td>
-            <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してよろしいですか？' } %></td>
+            <td id='priority' class="text-center align-middle "><%= task.priority_i18n %></td>
+            <td id='status' class="text-center align-middle"><%= task.status_i18n %></td>
+            <td class="task_row align-middle"><%= link_to task.name, task %></td>
+            <td class="align-middle"><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+            <td><%= link_to '詳細', task, class: 'btn btn-info' %></td>
+            <td><%= link_to '編集', edit_task_path(task), class: 'btn btn-success' %></td>
+            <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: 'btn btn-danger' %></td>
           </tr>
         <% end %>
       </tbody>
@@ -80,3 +78,30 @@
 <footer class="page-footer">
   <%= link_to 'DIVE INTO CODE', 'https://diveintocode.jp/', class: 'footer-link' %>
 </footer>
+
+<script>
+// var data = [];
+// var tr = $("table tbody tr");//全行を取得
+// for ( var i = 0, l = tr.length; i < l; i++ ) {
+//   var cells = tr.eq(i).children();//1行目から順にth、td問わず列を取得
+
+//   for (var j = 0, m = cells.length; j < m; j++ ) {
+//     if ( typeof data[i] == "undefined" )
+//       data[i] = [];
+//     data[i][j] = cells.eq(j).text();//i行目j列の文字列を取得
+//     if (data[i][j] == '高') {
+//       $('#priority').addClass('bg-danger text-white');
+//     }
+//     console.log(data[i][j]);
+//   }
+//   console.log('');
+// }
+
+//   const status = $('#priority').text();
+//   console.log(status);
+//   if (status == '高') {
+//     $('#priority').css('background-color', 'red');
+//   }
+
+//   $('#status').addClass('bg-danger text-white')
+</script>

@@ -1,9 +1,13 @@
-<div class="container">
+<div class="col-5 mx-auto">
   <h1 class="page-title">タスクの詳細</h1>
-  <%= link_to '一覧', tasks_path %>
+  <ul>
+    <li><%= link_to '削除', new_task_path, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-secondary mb-3' %></li>
+    <li><%= link_to '一覧', tasks_path, class: 'btn btn-outline-primary' %></li>
+  </ul>
+
 
   <div class="task-details">
-    <table class="task-details-list">
+    <table class="table table-hover">
       <tr>
         <th><%= Task.human_attribute_name(:id) %></th>
         <td><%= @task.id %></td>
@@ -14,7 +18,11 @@
       </tr>
       <tr>
         <th><%= Task.human_attribute_name(:description) %></th>
-        <td><%= @task.description %></td>
+        <td><%= simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: 'div') %></td>
+      </tr>
+      <tr>
+        <th><%= Task.human_attribute_name(:priority) %></th>
+        <td><%= @task.priority_i18n %></td>
       </tr>
       <tr>
         <th><%= Task.human_attribute_name(:status) %></th>
@@ -34,6 +42,5 @@
       </tr>
     </table>
   </div><!-- /.task-details" -->
-  <%= link_to '編集', edit_task_path(@task) %><br>
-  <%= link_to '新規作成', new_task_path %>
+  <%= link_to '編集', edit_task_path(@task), class: 'btn btn-outline-primary' %><br>
 </div><!-- /.container -->
