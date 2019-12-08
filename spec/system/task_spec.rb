@@ -27,7 +27,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
       it 'タスクが終了期限の昇順で並んでいること' do
         visit tasks_path
-        click_on '終了期限でソート'
+        click_on '終了期限'
         sleep 1 # ソート後の画面表示を待つ -> テストが通らないため
         task_list = all('.task_row')
 
@@ -71,7 +71,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクの優先順位で高い順にソートした場合' do
       it '優先順位が高 -> 中 -> 低の順番で表示されていること' do
         visit tasks_path
-        click_on '優先順位でソート'
+        click_on '優先順位'
         sleep 1
         task_list = all('.task_row')
 
