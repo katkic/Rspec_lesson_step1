@@ -9,3 +9,16 @@ ja:
         description: 詳しい説明
         created_at: 登録日時
         updated_at: 更新日時
+        expired_at: 終了期限
+        status: ステータス
+        priority: 優先順位
+  enums:
+    task:
+      status:
+        not_started: 未着手
+        in_progress: 着手中
+        completed: 完了
+      priority:
+        low: 低
+        medium: 中
+        high: 高

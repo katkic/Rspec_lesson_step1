@@ -45,6 +45,11 @@ $ heroku login
 $ heroku create
 ```
 
+## アセットプリコンパイルを実行する
+```
+rails assets:precompile RAILS_ENV=production
+```
+
 ## Herokuにデプロイをする
 RailsアプリケーションをHerokuにデプロイするには、まずGitを使ってHerokuにリポジトリをプッシュする。
 

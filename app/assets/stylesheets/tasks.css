@@ -21,43 +21,6 @@ ul {
   list-style-type: none;
 }
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-a {
-  color: #000;
-  text-decoration: none;
-}
-
-a:visited {
-  color: #666;
-}
-
-a:hover {
-  color: #fff;
-  background-color: #000;
-}
-
-th {
-  padding-bottom: 5px;
-}
-
-td {
-  padding: 0 5px 7px;
-}
-
-div.field,
-div.actions {
-  margin-bottom: 10px;
-}
-
-#notice {
-  color: green;
-}
-
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -91,10 +54,6 @@ div.actions {
   list-style: square;
 }
 
-label {
-  display: block;
-}
-
 .page-header {
   background: #233A61;
   padding: 10px 20px;
@@ -102,46 +61,19 @@ label {
 }
 
 .notice {
-  text-align: center;
-  font-size: 14px;
-  color: green;
-  margin: 20px 0 10px;
-}
-
-.container {
   width: 600px;
-  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin: 10px auto;
+  padding: 10px 0;
+  background: orange;
+  border-radius: 5px;
 }
 
 .page-title {
   margin-top: 20px;
   margin-bottom: 15px;
-}
-
-.task-list {
-  margin-top: 10px;
-}
-
-.task-list th, td {
-  padding: 5px;
-}
-
-.task-form {
-  padding: 15px 0 15px;
-}
-
-.task-details-list {
-  margin: 15px 0 15px;
-}
-
-.task-details-list th {
-  text-align: left;
-  padding: 10px;
-}
-
-.task-details-list td {
-  width: 220px;
-  padding: 10px;
 }
 
 .page-footer {

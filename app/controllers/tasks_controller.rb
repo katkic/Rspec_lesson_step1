@@ -2,7 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    @tasks =
+      if params[:sort_expired]
+        Task.order(:expired_at).page(params[:page])
+      elsif params[:sort_priority]
+        Task.order(priority: :desc).page(params[:page])
+      elsif params[:sort_created_at]
+        Task.order(created_at: :desc).page(params[:page])
+      else
+        Task.order(created_at: :desc).page(params[:page])
+      end
   end
 
   def show
@@ -38,13 +47,23 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "タスク「#{@task.name}」を削除しました"
   end
 
+  def search
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params).page(params[:page])
+    render :index
+  end
+
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
   end
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def task_search_params
+    params.fetch(:search, {}).permit(:name, :status, :expired_at, :priority)
   end
 end
