@@ -86,25 +86,3 @@
 <footer class="page-footer">
   <%= link_to 'DIVE INTO CODE', 'https://diveintocode.jp/', class: 'footer-link' %>
 </footer>
-
-<script>
-  $(function() {
-    $('.priority').each(function (i) {
-      if ($(this).text() == '高') {
-        $(this).addClass('bg-danger text-white');
-      }
-    });
-
-    $('.status').each(function (i) {
-      if ($(this).text() == '未着手') {
-        $(this).addClass('bg-warning text-white');
-      }
-    });
-
-    $('.status').each(function (i) {
-      if ($(this).text() == '完了') {
-        $(this).addClass('bg-success text-white');
-      }
-    });
-  });
-</script>

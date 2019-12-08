@@ -44,19 +44,3 @@
   </div><!-- /.task-details" -->
   <%= link_to '編集', edit_task_path(@task), class: 'btn btn-outline-primary' %><br>
 </div><!-- /.container -->
-
-<script>
-  $(function() {
-    if ($('#priority').text() == '高') {
-      $('#priority').addClass('bg-danger text-white');
-    }
-
-    if ($('#status').text() == '未着手') {
-      $('#status').addClass('bg-warning text-white');
-    }
-
-    if ($('#status').text() == '完了') {
-      $('#status').addClass('bg-success text-white');
-    }
-  });
-</script>
