@@ -39,12 +39,15 @@
       <%= f.submit '実行する', class: 'btn btn-primary ml-3' %>
     <% end %>
   </div><!-- /.task-search -->
+  <div class="nav mb-4">
+    <p class="mx-2">ソート</p>
+    <%= link_to '終了期限', tasks_path(sort_expired: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '優先順位', tasks_path(sort_priority: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '登録順', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
+  </div><!-- /.mb-3 -->
   <div class="mb-4">
     <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mx-2' %>
-    <%= link_to '終了期限でソート', tasks_path(sort_expired: true), class: 'btn btn-outline-primary mx-2' %>
-    <%= link_to '優先順位でソート', tasks_path(sort_priority: true), class: 'btn btn-outline-primary mx-2' %>
-    <%= link_to '登録順でソート', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
-  </div><!-- /.mb-3 -->
+  </div>
 
   <div class="task-list">
     <table class="table table-hover table-striped">
@@ -61,8 +64,8 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <td id='priority' class="text-center align-middle "><%= task.priority_i18n %></td>
-            <td id='status' class="text-center align-middle"><%= task.status_i18n %></td>
+            <td class="priority text-center align-middle "><%= task.priority_i18n %></td>
+            <td class="status text-center align-middle"><%= task.status_i18n %></td>
             <td class="task_row align-middle"><%= link_to task.name, task %></td>
             <td class="align-middle"><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
             <td><%= link_to '詳細', task, class: 'btn btn-info' %></td>
@@ -80,28 +83,23 @@
 </footer>
 
 <script>
-// var data = [];
-// var tr = $("table tbody tr");//全行を取得
-// for ( var i = 0, l = tr.length; i < l; i++ ) {
-//   var cells = tr.eq(i).children();//1行目から順にth、td問わず列を取得
+  $(function() {
+    $('.priority').each(function (i) {
+      if ($(this).text() == '高') {
+        $(this).addClass('bg-danger text-white');
+      }
+    });
 
-//   for (var j = 0, m = cells.length; j < m; j++ ) {
-//     if ( typeof data[i] == "undefined" )
-//       data[i] = [];
-//     data[i][j] = cells.eq(j).text();//i行目j列の文字列を取得
-//     if (data[i][j] == '高') {
-//       $('#priority').addClass('bg-danger text-white');
-//     }
-//     console.log(data[i][j]);
-//   }
-//   console.log('');
-// }
+    $('.status').each(function (i) {
+      if ($(this).text() == '未着手') {
+        $(this).addClass('bg-warning text-white');
+      }
+    });
 
-//   const status = $('#priority').text();
-//   console.log(status);
-//   if (status == '高') {
-//     $('#priority').css('background-color', 'red');
-//   }
-
-//   $('#status').addClass('bg-danger text-white')
+    $('.status').each(function (i) {
+      if ($(this).text() == '完了') {
+        $(this).addClass('bg-success text-white');
+      }
+    });
+  });
 </script>
