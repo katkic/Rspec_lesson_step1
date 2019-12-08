@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   validates :description, presence: true
   validate :check_expired_at
 
+  paginates_per 15
+
   enum status: {
     not_started: 0,
     in_progress: 1,
