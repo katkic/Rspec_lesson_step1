@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <th><%= Task.human_attribute_name(:expired_at) %></th>
-        <td><%= @task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+        <td class="text-danger"><%= @task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
       </tr>
       <tr>
         <th><%= Task.human_attribute_name(:created_at) %></th>
