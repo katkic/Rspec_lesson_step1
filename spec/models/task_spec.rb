@@ -69,6 +69,26 @@ RSpec.describe 'タスク管理機能', type: :model do
       @task3 = create :task3
     end
 
+    context 'タスク名を「植栽」で検索した場合' do
+      it 'タスク名が「植栽」を含むタスクを返す' do
+        expect(Task.name_like('植栽')).to include(@task2)
+      end
+
+      it '他のタスクを返さない' do
+        expect(Task.name_like('植栽')).to_not include(@task3)
+      end
+    end
+
+    context 'タスクのステータスを「未着手」で検索した場合' do
+      it 'ステータスが「未着手」のタスクを返す' do
+        expect(Task.status_is(0)).to include(@task3)
+      end
+
+      it '他のタスクを返さない' do
+        expect(Task.status_is(0)).to_not include(@task2)
+      end
+    end
+
     context 'タスク名を「植栽」、ステータスは「指定なし」で検索した場合' do
       it 'タスク名が「植栽」を含むタスクを返す' do
         expect(Task.search(name: '植栽', status: '')).to include(@task2)
