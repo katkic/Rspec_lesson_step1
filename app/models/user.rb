@@ -9,5 +9,6 @@ class User < ApplicationRecord
   validates :password,  presence: true,
                         length: { minimum: 8, allow_blank: true }
 
+  has_many :tasks, dependent: :destroy
   has_secure_password
 end
