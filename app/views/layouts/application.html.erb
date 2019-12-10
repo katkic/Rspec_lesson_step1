@@ -9,13 +9,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <header class="page-header">
-    <h1><%= link_to 'Taskpit', tasks_path %></h1>
+  <header class="page-header nav">
+    <h1 class="ml-5"><%= link_to 'Taskpit', tasks_path %></h1>
+
+    <% if logged_in? %>
+      <p class="align-middle"><%= current_user.name %></p>
+      <%= link_to 'プロフィール', user_path(current_user) %>
+      <%= link_to 'ログアウト', session_path(current_user), method: :delete %>
+    <% end %>
   </header>
 
   <body>
-    <% if flash.notice.present? %>
-      <p class="notice"><%= notice %></p>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key} notice") %>
     <% end %>
 
     <%= yield %>
