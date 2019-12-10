@@ -66,7 +66,7 @@
           <tr>
             <td class="priority text-center align-middle "><%= task.priority_i18n %></td>
             <td class="status text-center align-middle"><%= task.status_i18n %></td>
-            <td class="task_row align-middle"><%= link_to task.name, task %></td>
+            <td class="task_row align-middle"><%= link_to "#{task.name} - #{task.user.name}", task %></td>
             <td class="align-middle text-center"><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
             <td><%= link_to '詳細', task, class: 'btn btn-info' %></td>
             <td><%= link_to '編集', edit_task_path(task), class: 'btn btn-success' %></td>

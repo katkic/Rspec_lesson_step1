@@ -14,7 +14,7 @@
 
     <% if logged_in? %>
       <p class="align-middle"><%= current_user.name %></p>
-      <%= link_to 'プロフィール', user_path(current_user) %>
+      <%= link_to 'マイページ', user_path(current_user) %>
       <%= link_to 'ログアウト', session_path(current_user), method: :delete %>
     <% end %>
   </header>

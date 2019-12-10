@@ -2,15 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    tasks = current_user.tasks
     @tasks =
       if params[:sort_expired]
-        Task.order(:expired_at).page(params[:page])
+        tasks.order(:expired_at).page(params[:page])
       elsif params[:sort_priority]
-        Task.order(priority: :desc).page(params[:page])
+        tasks.order(priority: :desc).page(params[:page])
       elsif params[:sort_created_at]
-        Task.order(created_at: :desc).page(params[:page])
+        tasks.order(created_at: :desc).page(params[:page])
       else
-        Task.order(created_at: :desc).page(params[:page])
+        tasks.order(created_at: :desc).page(params[:page])
       end
   end
 
