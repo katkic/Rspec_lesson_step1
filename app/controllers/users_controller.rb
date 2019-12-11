@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   skip_before_action :login_required, only: %i[new create]
 
   def show
+    redirect_to user_path(current_user.id) unless @user.id == current_user.id
   end
 
   def new
