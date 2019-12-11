@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show destroy]
+  skip_before_action :login_required, only: %i[new create]
 
   def show
   end
@@ -12,7 +13,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: "ユーザー「#{@user.name}」を登録しました"
+      session[:user_id] = @user.id
+      redirect_to tasks_path, notice: "ユーザー「#{@user.name}」を登録してログインしました"
     else
       render :new
     end
@@ -22,6 +24,8 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_path
   end
+
+  private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
