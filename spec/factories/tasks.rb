@@ -6,6 +6,7 @@ FactoryBot.define do
     expired_at { Time.new(2019, 12, 14, 17, 0) }
     status { 2 } # 完了
     priority { 2 } # 高
+    user
   end
 
   factory :task2, class: Task do
@@ -15,6 +16,7 @@ FactoryBot.define do
     expired_at { Time.new(2019, 12, 24, 22, 30) }
     status { 1 } # 着手中
     priority { 1 } # 中
+    user
   end
 
   factory :task3, class: Task do
@@ -24,5 +26,6 @@ FactoryBot.define do
     expired_at { Time.new(2019, 12, 31, 17, 0) }
     status { 0 } # 未着手
     priority { 0 } # 低
+    user
   end
 end
