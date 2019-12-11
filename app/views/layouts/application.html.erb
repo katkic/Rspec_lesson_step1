@@ -9,14 +9,20 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <header class="page-header nav">
-    <h1 class="ml-5"><%= link_to 'Taskpit', tasks_path %></h1>
+  <header class="page-header">
+    <nav class="nav">
+        <h1 class="ml-2"><%= link_to 'Taskpit', tasks_path, class: 'nav-link' %></h1></<h1>
 
-    <% if logged_in? %>
-      <p class="align-middle"><%= current_user.name %></p>
-      <%= link_to 'マイページ', user_path(current_user) %>
-      <%= link_to 'ログアウト', session_path(current_user), method: :delete %>
-    <% end %>
+      <% if logged_in? %>
+      <ul class="navbar ml-auto mt-2">
+        <li class="nav-item"></li>
+        <li class="nav-item mr-3 h5"><%= current_user.name %></li>
+        <li class="nav-item"><%= link_to 'マイページ', user_path(current_user), class: 'nav-link text-white h5' %></li>
+        <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user),
+                  method: :delete, class: 'nav-link text-white h5' %></li>
+      </ul>
+      <% end %>
+    </nav><!-- /.navbar -->
   </header>
 
   <body>
