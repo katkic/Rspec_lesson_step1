@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました"
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :expired_at, :status, :priority, :user_id)
+    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
   end
 
   def set_task
