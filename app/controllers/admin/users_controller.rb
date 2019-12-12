@@ -4,9 +4,9 @@ class Admin::UsersController < ApplicationController
   def index
     @users =
       if params[:sort_created_at]
-        User.order(created_at: :desc).page(params[:page])
+        User.order(created_at: :desc).includes(:tasks).page(params[:page])
       else
-        @users = User.all.page(params[:page])
+        User.all.includes(:tasks).page(params[:page])
       end
   end
 
