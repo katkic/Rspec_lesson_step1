@@ -14,6 +14,7 @@
     <table class="table table-hover table-striped">
       <thead class="thead-default">
         <tr class="text-center">
+          <th><%= User.human_attribute_name(:admin) %></th>
           <th><%= User.human_attribute_name(:id) %></th>
           <th>タスク数</th>
           <th><%= User.human_attribute_name(:name) %></th>
@@ -26,6 +27,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
+            <td class="admin_flag text-center align-middle "><%= user.admin ? '◯' : '-'%></td>
             <td class="text-center align-middle "><%= user.id %></td>
             <td class="text-center align-middle "><%= user.tasks.size %></td>
             <td class="task_row text-center align-middle"><%= link_to "#{user.name}", admin_user_path(user) %></td>

@@ -17,17 +17,25 @@
         <% end %>
 
       <% if logged_in? %>
-      <ul class="navbar ml-auto mt-2">
-        <li class="nav-item"></li>
-        <li class="nav-item mr-3 h5"><%= current_user.name %></li>
-        <% if params[:controller] == 'admin/users' %>
-          <li class="nav-item"><%= link_to 'マイページ', admin_user_path(current_user), class: 'nav-link text-white h5' %></li>
-        <% else %>
-          <li class="nav-item"><%= link_to 'マイページ', user_path(current_user), class: 'nav-link text-white h5' %></li>
-        <% end %>
-        <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user),
-                  method: :delete, class: 'nav-link text-white h5' %></li>
-      </ul>
+        <ul class="navbar ml-auto mt-2">
+          <li class="nav-item mr-3 h5"><%= current_user.name %></li>
+
+          <% if current_user.admin? %>
+            <% if params[:controller] == 'admin/users' %>
+              <li class="nav-item"><%= link_to 'タスク一覧', tasks_path, class: 'nav-link text-white h5' %></li>
+            <% else%>
+              <li class="nav-item"><%= link_to '管理画面', admin_users_path, class: 'nav-link text-white h5' %></li>
+            <% end %>
+          <% end %>
+
+          <% if params[:controller] == 'admin/users' %>
+            <li class="nav-item"><%= link_to 'マイページ', admin_user_path(current_user), class: 'nav-link text-white h5' %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to 'マイページ', user_path(current_user), class: 'nav-link text-white h5' %></li>
+          <% end %>
+          <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user),
+                    method: :delete, class: 'nav-link text-white h5' %></li>
+        </ul>
       <% end %>
     </nav><!-- /.navbar -->
   </header>
