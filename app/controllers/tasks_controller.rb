@@ -50,6 +50,7 @@ class TasksController < ApplicationController
 
   def search
     @search_params = task_search_params
+    @search_params[:user_id] = current_user.id
     @tasks = Task.search(@search_params).page(params[:page])
     render :index
   end
