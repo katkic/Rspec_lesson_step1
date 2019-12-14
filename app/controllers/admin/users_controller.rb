@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
       if params[:sort_created_at]
         User.order(created_at: :desc).includes(:tasks).page(params[:page])
       else
-        User.all.includes(:tasks).page(params[:page])
+        User.order(:id).includes(:tasks).page(params[:page])
       end
   end
 
