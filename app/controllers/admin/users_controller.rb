@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_params, only: %i[show edit update destroy]
+  before_action :admin_login_required
 
   def index
     @users =
@@ -58,5 +59,9 @@ class Admin::UsersController < ApplicationController
 
   def set_params
     @user = User.find(params[:id])
+  end
+
+  def admin_login_required
+    raise Forbidden unless current_user&.admin?
   end
 end
