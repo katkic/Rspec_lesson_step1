@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   validate :check_expired_at
 
   belongs_to :user
-  paginates_per 15
+  paginates_per 10
 
   enum status: {
     not_started: 0,

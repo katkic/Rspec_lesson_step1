@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @user_tasks = @user.tasks.page(params[:page])
+    @user_tasks = Task.where(user_id: @user.id).page(params[:page])
   end
 
   def new
