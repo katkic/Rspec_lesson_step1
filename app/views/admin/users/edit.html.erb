@@ -1,6 +1,8 @@
 <div class="col-5 mx-auto mt-4">
   <h1>ユーザー編集</h1>
 
+  <%= link_to 'ユーザー 一覧', admin_users_path, class: 'btn btn-outline-primary mb-4' %>
+
   <%= form_with model: @user, url: admin_user_path, local: true do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
