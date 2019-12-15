@@ -16,9 +16,6 @@ class User < ApplicationRecord
   private
 
   def check_last_admin
-    if User.where(admin: true).size == 1
-      errors.add :base, '少なくとも1つ、管理者権限のあるアカウントが必要です'
-      throw :abort
-    end
+    throw :abort if self.admin? && User.where(admin: true).size == 1
   end
 end
