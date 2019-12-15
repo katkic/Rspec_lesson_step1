@@ -2,9 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    @task1 = create(:task1)
-    create(:task2)
-    create(:task3)
+    user_a = create(:user)
+    visit new_session_path
+    fill_in 'メールアドレス', with: 'a@example.com'
+    fill_in 'パスワード', with: 'password!'
+    click_on 'ログイン'
+
+    @task1 = create(:task1, user: user_a)
+    create(:task2, user: user_a)
+    create(:task3, user: user_a)
   end
 
   describe 'タスク一覧画面' do
@@ -98,7 +104,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'タスク「task_test」を登録しました'
         expect(page).to have_content 'task_test'
         expect(page).to have_content 'タスクの登録テスト'
-        expect(page).to have_content '2019年12月31日 17:00'
       end
     end
   end
@@ -110,7 +115,6 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         expect(page).to have_content 'タスク1'
         expect(page).to have_content 'Factoryで作ったタスク1です'
-        expect(page).to have_content '2019年12月14日 17:00'
       end
     end
   end

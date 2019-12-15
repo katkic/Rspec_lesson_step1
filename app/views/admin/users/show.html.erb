@@ -1,0 +1,122 @@
+<div class="container mb-5">
+  <h1 class="page-title">ユーザー詳細</h1>
+  <%= link_to 'ユーザー 一覧', admin_users_path, class: 'btn btn-outline-primary mb-4' %>
+
+  <table class="table table-hover table-striped container">
+    <thead class="thead-default">
+      <tr class="text-center">
+        <th><%= User.human_attribute_name(:admin) %></th>
+        <th><%= User.human_attribute_name(:id) %></th>
+        <th>タスク数</th>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:email) %></th>
+        <th><%= User.human_attribute_name(:created_at) %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="admin_flag text-center align-middle "><%= @user.admin ? '◯' : '-'%></td>
+        <td class="text-center align-middle "><%= @user.id %></td>
+        <td class="text-center align-middle "><%= @user.tasks.count %></td>
+        <td class="task_row text-center align-middle"><%= link_to "#{@user.name}", admin_user_path(@user) %></td>
+        <td class="text-center align-middle"><%= @user.email %></td>
+        <td class="text-center align-middle"><%= @user.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+        <td><%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-success' %></td>
+        <td><%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: 'btn btn-danger' %></td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- /.container -->
+
+<div class="container">
+  <h1 class="page-title">タスク一覧</h1>
+
+  <!-- 検索機能、ソート、タスク作成はあとで実装予定
+  <%= form_with scope: :search, method: :get, url: search_tasks_path, local: true do |f| %>
+    <div class="mb-3 ml-2">
+      <%= f.label :name_search, '名称検索' %>
+      <% if @search_params.present? %>
+      <%# タスク検索後、入力値を初期値とする。 以下同じ %>
+        <%= f.text_field :name, value: @search_params[:name] %>
+      <% else %>
+        <%= f.text_field :name %>
+      <% end %>
+
+      <%= f.label :status_search, 'ステータス検索' %>
+      <% if @search_params.present? %>
+        <%= f.select :status, Task.statuses_i18n.invert,
+                include_blank: true, selected: @search_params[:status] %>
+      <% else %>
+        <%= f.select :status, Task.statuses_i18n.invert,
+                include_blank: true, selected: '' %>
+      <% end %>
+
+      <%= f.label :expired_at, '終了期限でソート' %>
+      <% if @search_params.present? %>
+        <% expired_flag = true if @search_params[:expired_at] == 'true' %>
+        <%= f.check_box :expired_at, { checked: expired_flag }, 'true', 'false' %>
+      <% else %>
+        <%= f.check_box :expired_at, {}, 'true', 'false' %>
+      <% end %>
+
+      <%= f.label :priority, '優先順位でソート' %>
+      <% if @search_params.present? %>
+        <% priority_flag = true if @search_params[:priority] == 'true' %>
+        <%= f.check_box :priority, { checked: priority_flag }, 'true', 'false' %>
+      <% else %>
+        <%= f.check_box :priority, {}, 'true', 'false' %>
+      <% end %>
+
+      <%= f.submit '実行する', class: 'btn btn-primary ml-3' %>
+    <% end %>
+  </div> --><!-- /.task-search -->
+  <!--
+  <div class="nav mb-4">
+    <p class="mx-2">ソート</p>
+    <%= link_to '終了期限', tasks_path(sort_expired: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '優先順位', tasks_path(sort_priority: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '登録順', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
+  </div> --><!-- /.mb-3 -->
+
+  <!--
+  <div class="mb-4">
+    <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mx-2' %>
+  </div> -->
+
+  <table class="table table-hover table-striped">
+    <thead class="thead-default">
+      <tr class="text-center">
+        <th><%= Task.human_attribute_name(:priority) %></th>
+        <th><%= Task.human_attribute_name(:status) %></th>
+        <th><%= Task.human_attribute_name(:name) %></th>
+        <th><%= Task.human_attribute_name(:expired_at) %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user.tasks.each do |task| %>
+        <tr>
+          <td class="priority text-center align-middle "><%= task.priority_i18n %></td>
+          <td class="status text-center align-middle"><%= task.status_i18n %></td>
+          <td class="task_row align-middle"><%= link_to "#{task.name} - #{task.user.name}", task %></td>
+          <td class="align-middle text-center"><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+          <td><%= link_to '詳細', task, class: 'btn btn-info' %></td>
+          <td><%= link_to '編集', edit_task_path(task), class: 'btn btn-success' %></td>
+          <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="md-3">
+    <%= paginate(@user_tasks) %>
+    <%= page_entries_info(@user_tasks) %>
+  </div><!-- /.md-3 -->
+</div><!-- /.container -->
+
+<footer class="page-footer">
+  <%= link_to 'DIVE INTO CODE', 'https://diveintocode.jp/', class: 'footer-link' %>
+</footer>

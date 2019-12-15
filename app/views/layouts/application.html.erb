@@ -10,12 +10,45 @@
   </head>
 
   <header class="page-header">
-    <h1><%= link_to 'Taskpit', tasks_path %></h1>
+    <nav class="nav">
+      <h1 class="ml-2">
+        <%= link_to 'Taskpit', tasks_path, class: 'nav-link' %>
+      </h1>
+
+      <% if params[:controller] == 'admin/users' %>
+        <h2 class="ml-2"><%= link_to '管理画面', admin_users_path, class: 'nav-link text-white mt-2' %></h2>
+      <% end %>
+
+      <% if logged_in? %>
+        <ul class="navbar ml-auto mt-2">
+          <li class="nav-item mr-3 h5"><%= current_user.name %></li>
+
+          <% if current_user.admin? %>
+            <% if params[:controller] == 'admin/users' %>
+              <li class="nav-item">
+                <%= link_to 'タスク一覧', tasks_path, class: 'nav-link text-white h5' %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to '管理画面', admin_users_path, class: 'nav-link text-white h5' %></li>
+            <% end %>
+          <% end %>
+
+          <li class="nav-item">
+            <%= link_to 'マイページ', which_user_path(params[:controller], current_user),
+                  class: 'nav-link text-white h5' %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'ログアウト', session_path(current_user),
+                  method: :delete, class: 'nav-link text-white h5' %>
+          </li>
+        </ul>
+      <% end %>
+    </nav><!-- /.navbar -->
   </header>
 
   <body>
-    <% if flash.notice.present? %>
-      <p class="notice"><%= notice %></p>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key} notice") %>
     <% end %>
 
     <%= yield %>

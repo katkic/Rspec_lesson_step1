@@ -1,8 +1,9 @@
 class Task < ApplicationRecord
-  validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 30 }
   validates :description, presence: true
   validate :check_expired_at
 
+  belongs_to :user
   paginates_per 15
 
   enum status: {
@@ -20,7 +21,8 @@ class Task < ApplicationRecord
   scope :search, -> (search_params) do
     return if search_params.blank?
 
-    name_like(search_params[:name])
+    where(user_id: search_params[:user_id])
+      .name_like(search_params[:name])
       .status_is(search_params[:status])
       .expired_sort(search_params[:expired_at])
       .priority_sort(search_params[:priority])

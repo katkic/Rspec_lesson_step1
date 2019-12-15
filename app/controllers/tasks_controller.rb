@@ -2,15 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    tasks = current_user.tasks
     @tasks =
       if params[:sort_expired]
-        Task.order(:expired_at).page(params[:page])
+        tasks.order(:expired_at).page(params[:page])
       elsif params[:sort_priority]
-        Task.order(priority: :desc).page(params[:page])
+        tasks.order(priority: :desc).page(params[:page])
       elsif params[:sort_created_at]
-        Task.order(created_at: :desc).page(params[:page])
+        tasks.order(created_at: :desc).page(params[:page])
       else
-        Task.order(created_at: :desc).page(params[:page])
+        tasks.order(created_at: :desc).page(params[:page])
       end
   end
 
@@ -25,7 +26,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました"
@@ -49,6 +50,7 @@ class TasksController < ApplicationController
 
   def search
     @search_params = task_search_params
+    @search_params[:user_id] = current_user.id
     @tasks = Task.search(@search_params).page(params[:page])
     render :index
   end
