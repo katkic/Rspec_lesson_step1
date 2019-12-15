@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_validation { email.downcase! }
+  before_destroy :check_last_admin
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true,
@@ -11,4 +12,13 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_secure_password
   paginates_per 15
+
+  private
+
+  def check_last_admin
+    if User.where(admin: true).size == 1
+      errors.add :base, '少なくとも1つ、管理者権限のあるアカウントが必要です'
+      throw :abort
+    end
+  end
 end

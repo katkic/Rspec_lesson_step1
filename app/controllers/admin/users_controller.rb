@@ -33,7 +33,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if User.where(admin: true).size == 1 && user_params[:admin] == '0'
+      redirect_to edit_admin_user_path(@user), notice: '管理者がいなくなるため権限を変更できません'
+    elsif @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "ユーザー「#{@user.name}」を編集しました"
     else
       render :edit
@@ -41,8 +43,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました"
+    if User.where(admin: true).size >= 2 && @user == current_user
+      redirect_to admin_users_path, notice: '自分自身は削除できません'
+    elsif @user.destroy
+      redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました"
+    else
+      redirect_to admin_users_path, notice: '管理者がいなくなるため削除できません'
+    end
   end
 
   private
@@ -62,6 +69,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_login_required
-    raise Forbidden unless current_user&.admin?
+    raise Forbidden unless current_user.admin?
   end
 end
