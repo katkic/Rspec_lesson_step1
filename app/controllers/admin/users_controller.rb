@@ -33,8 +33,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if User.where(admin: true).size == 1 && user_params[:admin] == '0'
-      redirect_to edit_admin_user_path(@user), notice: '管理者がいなくなるため権限を変更できません'
+    if @user == current_user && user_params[:admin] == '0'
+      redirect_to edit_admin_user_path(@user), notice: '自分の管理者権限は変更できません'
     elsif @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "ユーザー「#{@user.name}」を編集しました"
     else
