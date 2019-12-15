@@ -1,4 +1,12 @@
-10.times do
+User.create!(
+  name: '山田太郎',
+  email: 'yamada@example.com',
+  password: 'password!',
+  password_confirmation: 'password!',
+  admin: true
+)
+
+15.times do
   name = Faker::Name.unique.name
   email = Faker::Internet.unique.email
   password = 'password!'
@@ -12,22 +20,15 @@
   )
 end
 
-(1..100).each do |i|
+(1..300).each do |i|
   Task.create!(
     name: "タスク#{i}",
     description: "タスクの登録テスト#{i}です",
-    created_at: Time.now + 60 * 60 * 24 * i,
-    updated_at: Time.now + 60 * 60 * 24 * i,
-    expired_at: Time.now + 60 * 60 * 24 * (i + 7),
+    created_at: Time.current,
+    updated_at: Time.current,
+    expired_at: Time.current.advance(days: i + 10),
     status: rand(3),
     priority: rand(3),
-    user_id: rand(10) + 1
+    user_id: rand(16) + 1
   )
 end
-
-# User.create!(
-#   name: '山田太郎',
-#   email: 'yamada@example.com',
-#   password: 'password!',
-#   password_confirmation: 'password!'
-# )
