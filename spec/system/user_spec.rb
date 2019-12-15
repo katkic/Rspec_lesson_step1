@@ -118,7 +118,7 @@ RSpec.describe 'ユーザー機能', type: :system do
   end
 
   describe '管理画面' do
-    let(:user_a) { create(:user, name: 'ユーザーA', email: 'a@example.com') }
+    let(:user_a) { create(:user, name: 'ユーザーA', email: 'a@example.com', admin: true) }
     let(:user_b) { create(:user, name: 'ユーザーB', email: 'b@example.com') }
 
     before do
