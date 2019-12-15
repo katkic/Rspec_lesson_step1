@@ -194,9 +194,9 @@ RSpec.describe 'ユーザー機能', type: :system do
 
     context '任意のユーザーを削除した場合' do
       let(:login_user) { user_a }
+      let!(:user_b) { create(:user, name: 'ユーザーB', email: 'b@example.com') }
 
       before do
-        create(:task1, user: user_b)
         visit admin_users_path
         find(".user-#{user_b.id}").click
         page.driver.browser.switch_to.alert.accept
