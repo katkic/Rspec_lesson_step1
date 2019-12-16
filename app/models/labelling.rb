@@ -1,0 +1,2 @@
+class Labelling < ApplicationRecord
+end
