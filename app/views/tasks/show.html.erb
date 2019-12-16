@@ -6,7 +6,7 @@
       <%= link_to '一覧', tasks_path, class: 'btn btn-outline-primary' %>
     </li>
     <li class="mr-3">
-      <%= link_to 'タスク登録', new_task_path, class: 'btn btn-primary mb-3' %>
+      <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mb-3' %>
     </li>
     <li>
       <%= link_to '削除', new_task_path, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger mb-3' %>
@@ -46,6 +46,14 @@
       <tr>
         <th><%= Task.human_attribute_name(:updated_at) %></th>
         <td><%= @task.updated_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+      </tr>
+      <tr>
+        <th><%= Label.human_attribute_name(:name) %></th>
+        <td>
+          <% @task.labels.each do |label| %>
+            <span class="p-1 mr-2 bg-secondary text-white rounded"><%= label.name %></span>
+          <% end %>
+        </td>
       </tr>
     </table>
   </div><!-- /.task-details" -->
