@@ -20,6 +20,15 @@
                 include_blank: true, selected: '' %>
       <% end %>
 
+      <%= f.label :status_search, 'ラベル検索' %>
+      <% if @search_params.present? %>
+        <%= f.select "label_id", Label.pluck(:name, :id),
+                include_blank: true, selected: @search_params[:label_id] %>
+      <% else %>
+        <%= f.select "label_id", Label.pluck(:name, :id),
+                include_blank: true, selected: '' %>
+      <% end %>
+
       <%= f.label :expired_at, '終了期限でソート' %>
       <% if @search_params.present? %>
         <% expired_flag = true if @search_params[:expired_at] == 'true' %>

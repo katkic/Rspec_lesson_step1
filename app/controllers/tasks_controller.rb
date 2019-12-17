@@ -75,6 +75,6 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:name, :status, :expired_at, :priority)
+    params.fetch(:search, {}).permit(:name, :status, :expired_at, :priority, :label_id)
   end
 end
