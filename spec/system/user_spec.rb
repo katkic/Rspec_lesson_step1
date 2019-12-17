@@ -132,8 +132,7 @@ RSpec.describe 'ユーザー機能', type: :system do
     context 'ユーザー一覧を表示した場合' do
       let(:login_user) { user_a }
 
-      it '管理画面で登録ユーザーが表示されていること' do
-        expect(page).to have_content '管理画面'
+      it '登録ユーザーが表示されていること' do
         expect(page).to have_content 'ユーザーA'
       end
     end
@@ -151,9 +150,7 @@ RSpec.describe 'ユーザー機能', type: :system do
       end
 
       it '作成したユーザーが登録されていること' do
-        expect(page).to have_content '管理画面'
         expect(page).to have_content 'ユーザー「ユーザーB」を登録しました'
-        expect(page).to have_content 'ユーザーB'
       end
     end
 
@@ -165,9 +162,7 @@ RSpec.describe 'ユーザー機能', type: :system do
         visit admin_user_path(user_b)
       end
 
-      it 'そのユーザーの情報とタスクが表示されていること' do
-        expect(page).to have_content '管理画面'
-        expect(page).to have_content 'ユーザー詳細'
+      it 'そのユーザーの情報が表示されていること' do
         expect(page).to have_content 'ユーザーB'
         expect(page).to have_content '植栽1'
       end
@@ -183,12 +178,8 @@ RSpec.describe 'ユーザー機能', type: :system do
         click_on '更新する'
       end
 
-      it 'そのユーザーの更新された情報とタスクが表示されていること' do
+      it 'そのユーザーの更新された情報が表示されていること' do
         expect(page).to have_content 'ユーザー「ユーザーB」を編集しました'
-        expect(page).to have_content '管理画面'
-        expect(page).to have_content 'ユーザー詳細'
-        expect(page).to have_content 'change@example.com'
-        expect(page).to have_content '植栽1'
       end
     end
 
@@ -204,8 +195,6 @@ RSpec.describe 'ユーザー機能', type: :system do
 
       it 'そのユーザーが削除されていること' do
         expect(page).to have_content 'ユーザー「ユーザーB」を削除しました'
-        expect(page).to have_content '管理画面'
-        expect(page).to have_content 'ユーザー 一覧'
       end
     end
   end
