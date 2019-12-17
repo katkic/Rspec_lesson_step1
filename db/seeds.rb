@@ -20,6 +20,13 @@ User.create!(
   )
 end
 
+(1..7).each do |i|
+  Label.create!(
+    name: "ラベル#{i}",
+    user_id: 1
+  )
+end
+
 (1..300).each do |i|
   Task.create!(
     name: "タスク#{i}",
