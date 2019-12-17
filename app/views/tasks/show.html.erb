@@ -9,7 +9,7 @@
       <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mb-3' %>
     </li>
     <li>
-      <%= link_to '削除', new_task_path, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger mb-3' %>
+      <%= link_to '削除', task_path(@task), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger mb-3' %>
     </li>
   </ul>
 
