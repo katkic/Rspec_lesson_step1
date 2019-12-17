@@ -52,7 +52,7 @@
     <p class="mx-2">ソート</p>
     <%= link_to '終了期限', tasks_path(sort_expired: true), class: 'btn btn-outline-primary mx-2' %>
     <%= link_to '優先順位', tasks_path(sort_priority: true), class: 'btn btn-outline-primary mx-2' %>
-    <%= link_to '登録順', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to '最近の登録順', tasks_path(sort_created_at: true), class: 'btn btn-outline-primary mx-2' %>
   </div><!-- /.mb-3 -->
   <div class="mb-4">
     <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mx-2' %>
