@@ -1,11 +1,11 @@
 <div class="col-5 mx-auto">
   <h1 class="page-title">タスクの編集</h1>
 
-  <%= link_to '一覧', tasks_path, class: 'btn btn-outline-primary mb-3' %>
-
+  <ul class="nav">
+    <li><%= link_to '一覧', tasks_path, class: 'btn btn-outline-primary mb-3' %></li>
+    <li><%= link_to '戻る', :back, class: 'btn btn-outline-primary ml-3' %></li>
+  </ul>
   <div class="task-form">
     <%= render 'form', task: @task %>
   </div><!-- /.task-form -->
-
-  <%= link_to '戻る', :back, class: 'btn btn-outline-primary mt-3' %>
 </div><!-- /.container -->

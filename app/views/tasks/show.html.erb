@@ -1,9 +1,12 @@
 <div class="col-5 mx-auto">
   <h1 class="page-title">タスクの詳細</h1>
 
-  <ul class="nav pull-right">
+  <ul class="nav">
     <li class="mr-3">
       <%= link_to '一覧', tasks_path, class: 'btn btn-outline-primary' %>
+    </li>
+    <li class="mr-3">
+      <%= link_to '編集', edit_task_path(@task), class: 'btn btn-outline-primary' %><br>
     </li>
     <li class="mr-3">
       <%= link_to '新規作成', new_task_path, class: 'btn btn-primary mb-3' %>
@@ -16,8 +19,12 @@
   <div class="task-details">
     <table class="table table-hover">
       <tr>
-        <th><%= Task.human_attribute_name(:id) %></th>
-        <td><%= @task.id %></td>
+        <th><%= Label.human_attribute_name(:name) %></th>
+        <td>
+          <% @task.labels.each do |label| %>
+            <span class="p-1 mr-2 bg-secondary text-white rounded"><%= label.name %></span>
+          <% end %>
+        </td>
       </tr>
       <tr>
         <th><%= Task.human_attribute_name(:name) %></th>
@@ -47,15 +54,7 @@
         <th><%= Task.human_attribute_name(:updated_at) %></th>
         <td><%= @task.updated_at.strftime('%Y年%m月%d日 %H:%M') %></td>
       </tr>
-      <tr>
-        <th><%= Label.human_attribute_name(:name) %></th>
-        <td>
-          <% @task.labels.each do |label| %>
-            <span class="p-1 mr-2 bg-secondary text-white rounded"><%= label.name %></span>
-          <% end %>
-        </td>
-      </tr>
+      
     </table>
   </div><!-- /.task-details" -->
-  <%= link_to '編集', edit_task_path(@task), class: 'btn btn-outline-primary' %><br>
 </div><!-- /.container -->
