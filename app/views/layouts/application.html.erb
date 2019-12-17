@@ -23,6 +23,10 @@
         <ul class="navbar ml-auto mt-2">
           <li class="nav-item mr-3 h5"><%= current_user.name %></li>
 
+          <li class="nav-item">
+            <%= link_to 'ラベル管理', labels_path, class: 'nav-link text-white h5' %>
+          </li>
+
           <% if current_user.admin? %>
             <% if params[:controller] == 'admin/users' %>
               <li class="nav-item">

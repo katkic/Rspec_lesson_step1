@@ -78,7 +78,7 @@
             <td class="status text-center align-middle"><%= task.status_i18n %></td>
             <td class="task_row align-middle"><%= link_to "#{task.name} - #{task.user.name}", task %></td>
             <td class="align-middle text-center"><%= task.expired_at.strftime('%Y年%m月%d日 %H:%M') %></td>
-            <td>
+            <td class="align-middle">
               <% task.labels.each do |label| %>
                 <span class="label p-1 mr-1 bg-secondary text-white rounded"><%= label.name %></span>
               <% end %>
