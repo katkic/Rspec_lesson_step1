@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    user_a = create(:user)
+    @user_a = create(:user)
     visit new_session_path
     fill_in 'メールアドレス', with: 'a@example.com'
     fill_in 'パスワード', with: 'password!'
     click_on 'ログイン'
 
-    @task1 = create(:task1, user: user_a)
-    create(:task2, user: user_a)
-    create(:task3, user: user_a)
+    @task1 = create(:task1, user: @user_a)
+    @task2 = create(:task2, user: @user_a)
+    create(:task3, user: @user_a)
   end
 
   describe 'タスク一覧画面' do
@@ -115,6 +115,104 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         expect(page).to have_content 'タスク1'
         expect(page).to have_content 'Factoryで作ったタスク1です'
+      end
+    end
+  end
+
+  describe 'タスクへのラベル登録機能' do
+    before do
+      @label1 = create(:label1, user: @user_a)
+      @label2 = create(:label2, user: @user_a)
+      @label3 = create(:label3, user: @user_a)
+    end
+    context 'タスクの新規登録時にラベルも新規作成して登録した場合' do
+      before do
+        click_on '新規作成'
+        fill_in '名称', with: 'task_test'
+        fill_in '詳しい説明', with: 'タスクの登録テスト'
+        select '2019', from: 'task_expired_at_1i'
+        select '12', from: 'task_expired_at_2i'
+        select '31', from: 'task_expired_at_3i'
+        select '17', from: 'task_expired_at_4i'
+        select '00', from: 'task_expired_at_5i'
+        fill_in 'task[labels_attributes][0][name]', with: 'ユーザーAのラベル1'
+        click_on '登録する'
+      end
+
+      it '登録したラベルがタスクに紐づいていること' do
+        expect(page).to have_content 'ユーザーAのラベル1'
+      end
+    end
+
+    context 'タスクの新規登録時に既存のラベルを登録した場合' do
+      before do
+        click_on '新規作成'
+        fill_in '名称', with: 'task_test'
+        fill_in '詳しい説明', with: 'タスクの登録テスト'
+        select '2019', from: 'task_expired_at_1i'
+        select '12', from: 'task_expired_at_2i'
+        select '31', from: 'task_expired_at_3i'
+        select '17', from: 'task_expired_at_4i'
+        select '00', from: 'task_expired_at_5i'
+        check 'test_label1'
+        click_on '登録する'
+      end
+
+      it '登録したラベルがタスクに紐づいていること' do
+        expect(page).to have_content 'test_label1'
+      end
+    end
+
+    context 'タスク編集画面で複数のラベルをつけた場合' do
+      before do
+        visit edit_task_path(@task1)
+        check 'test_label1'
+        check 'test_label2'
+        check 'test_label3'
+        click_on '更新する'
+      end
+
+      it 'そのタスクに紐づいているラベルが一覧表示されていること' do
+        expect(page).to have_selector ".label-#{@label1.id}", text: 'test_label1'
+        expect(page).to have_selector ".label-#{@label2.id}", text: 'test_label2'
+        expect(page).to have_selector ".label-#{@label3.id}", text: 'test_label3'
+      end
+    end
+  end
+
+  describe 'タスクのラベル検索機能' do
+    before do
+      @label1 = create(:label1, user: @user_a)
+      @label2 = create(:label2, user: @user_a)
+    end
+
+    context 'test_label1で検索した場合' do
+      before do
+        visit edit_task_path(@task1)
+        check 'test_label1'
+        click_on '更新する'
+        visit tasks_path
+        select 'test_label1', from: 'search[label_id]'
+        click_on '実行する'
+      end
+
+      it 'test_label1のタスクが表示されていること' do
+        expect(page).to have_content '植栽1'
+      end
+    end
+
+    context 'test_label2で検索した場合' do
+      before do
+        visit edit_task_path(@task2)
+        check 'test_label2'
+        click_on '更新する'
+        visit tasks_path
+        select 'test_label2', from: 'search[label_id]'
+        click_on '実行する'
+      end
+
+      it 'test_label1のタスクが表示されていないこと' do
+        expect(page).to have_no_content '植栽1'
       end
     end
   end

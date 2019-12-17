@@ -22,7 +22,7 @@
         <th><%= Label.human_attribute_name(:name) %></th>
         <td>
           <% @task.labels.each do |label| %>
-            <span class="p-1 mr-2 bg-secondary text-white rounded"><%= label.name %></span>
+            <span class="<%= "label-#{label.id}" %> p-1 mr-2 bg-secondary text-white rounded"><%= label.name %></span>
           <% end %>
         </td>
       </tr>
