@@ -1,5 +1,5 @@
 <div class="task-form">
-  <%= form_with model: task, local: true do |form| %>
+  <%= form_with model: task, local: true do |f| %>
     <% if task.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(task.errors.count, "") %> 件のエラーがあります</h2>
@@ -13,34 +13,52 @@
     <% end %>
 
     <div class="form-group">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: 'form-control' %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :description %>
-      <%= form.text_area :description, class: 'form-control' %>
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :expired_at, for: 'task_expired_at_1i' %>
-      <%= form.datetime_select :expired_at,
+      <%= f.label :expired_at, for: 'task_expired_at_1i' %>
+      <%= f.datetime_select :expired_at,
             start_year: Time.current.year, end_year: Time.current.year + 2,
             use_month_numbers: true %>
     </div>
 
     <div class="form-group">
-      <%= form.label :priority %>
-      <%= form.select :priority, Task.priorities_i18n.invert %>
+      <%= f.label :priority %>
+      <%= f.select :priority, Task.priorities_i18n.invert %>
     </div>
 
     <div class="form-group">
-      <%= form.label :status %>
-      <%= form.select :status, create_statuses %>
+      <%= f.label :status %>
+      <%= f.select :status, create_statuses %>
     </div>
 
+    <div class="form-group">
+      <p>ラベル</p>
+      <%= f.collection_check_boxes :label_ids, current_user.labels.order(:id), :id, :name do |l| %>
+        <%= l.label { l.check_box(class: 'ml-3 mr-2') + l.text } %>
+      <% end %>
+    </div>
+
+      <div class="form-group">
+        <p>ラベル作成</p>
+        <%= f.fields_for :labels do |l| %>
+          <p class="ml-3">
+            <%= l.label :name %>
+            <%= l.text_field :name, value: '' %>
+            <%= l.hidden_field :user_id, value: current_user.id %>
+          </p>
+        <% end %>
+      </div><!-- /.form-group -->
+
     <div class="actions">
-      <%= form.submit class: 'btn btn-primary'%>
+      <%= f.submit class: 'btn btn-primary'%>
     </div>
   <% end %>
 </div><!-- /.justify-content-around -->

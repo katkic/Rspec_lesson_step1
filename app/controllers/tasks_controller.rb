@@ -20,9 +20,11 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    3.times { @task.labels.build }
   end
 
   def edit
+    @task.labels.build
   end
 
   def create
@@ -58,7 +60,15 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :expired_at,
+      :status,
+      :priority,
+      label_ids: [],
+      labels_attributes: %i[name user_id]
+    )
   end
 
   def set_task
@@ -66,6 +76,6 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:name, :status, :expired_at, :priority)
+    params.fetch(:search, {}).permit(:name, :status, :expired_at, :priority, :label_id)
   end
 end

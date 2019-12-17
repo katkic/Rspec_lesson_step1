@@ -28,4 +28,11 @@ document.addEventListener('turbolinks:load', function() {
   if ($('#status').text() == '完了') {
     $('#status').addClass('bg-success text-white');
   }
+
+  // ラベル検索で該当したラベルを赤くする
+  $('.label').each(function (i) {
+    if ($(this).text() == $('option:selected').text()) {
+      $(this).addClass('bg-danger text-white');
+    }
+  });
 });

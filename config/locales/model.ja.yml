@@ -3,6 +3,7 @@ ja:
     models:
       task: タスク
       user: ユーザー
+      label: ラベル
     attributes:
       task:
         id: ID
@@ -22,6 +23,11 @@ ja:
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
         admin: '管理者権限'
+      label:
+        id: id
+        name: ラベル名
+        created_at: 登録日時
+        updated_at: 更新日時
   enums:
     task:
       status:

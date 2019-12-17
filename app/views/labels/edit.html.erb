@@ -1,0 +1,17 @@
+<div class="col-5 mx-auto">
+  <h1 class="page-title mb-5">ラベルの編集</h1>
+
+  <ul class="nav mb-4">
+    <li class="mr-3">
+      <%= link_to '一覧', labels_path, class: 'btn btn-outline-primary' %>
+    </li>
+    <li class="mr-3">
+      <%= link_to '新規作成', new_label_path, class: 'btn btn-primary mb-3' %>
+    </li>
+    <li>
+      <%= link_to '削除', label_path(@label), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger mb-3' %>
+    </li>
+  </ul>
+
+  <%= render 'form', label: @label %>
+</div><!-- /.col-5 mx-auto -->
