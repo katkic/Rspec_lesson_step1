@@ -24,6 +24,7 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task.labels.build
   end
 
   def create
@@ -66,7 +67,7 @@ class TasksController < ApplicationController
       :status,
       :priority,
       label_ids: [],
-      labels_attributes: [:name]
+      labels_attributes: %i[name user_id]
     )
   end
 

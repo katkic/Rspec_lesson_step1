@@ -41,22 +41,21 @@
 
     <div class="form-group">
       <p>ラベル</p>
-      <%= f.collection_check_boxes :label_ids, Label.all, :id, :name do |l| %>
+      <%= f.collection_check_boxes :label_ids, current_user.labels.order(:id), :id, :name do |l| %>
         <%= l.label { l.check_box(class: 'ml-3 mr-2') + l.text } %>
       <% end %>
     </div>
 
-    <% if action_name == 'new' %>
       <div class="form-group">
         <p>ラベル作成</p>
         <%= f.fields_for :labels do |l| %>
           <p class="ml-3">
-          <%= l.label :name %>
-          <%= l.text_field :name, value: '' %>
+            <%= l.label :name %>
+            <%= l.text_field :name, value: '' %>
+            <%= l.hidden_field :user_id, value: current_user.id %>
           </p>
         <% end %>
       </div><!-- /.form-group -->
-    <% end %>
 
     <div class="actions">
       <%= f.submit class: 'btn btn-primary'%>
