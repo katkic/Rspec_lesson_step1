@@ -139,7 +139,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '登録する'
       end
 
-      it '登録したラベルがタスクに紐づいていること' do
+      it '登録したラベルがタスクの詳細画面に表示されていること' do
         expect(page).to have_content 'ユーザーAのラベル1'
       end
     end
@@ -158,7 +158,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '登録する'
       end
 
-      it '登録したラベルがタスクに紐づいていること' do
+      it '登録したラベルがタスクの詳細画面に表示されていること' do
         expect(page).to have_content 'test_label1'
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '更新する'
       end
 
-      it 'そのタスクに紐づいているラベルが一覧表示されていること' do
+      it 'タスクの詳細画面に紐づいているラベルが一覧表示されていること' do
         expect(page).to have_selector ".label-#{@label1.id}", text: 'test_label1'
         expect(page).to have_selector ".label-#{@label2.id}", text: 'test_label2'
         expect(page).to have_selector ".label-#{@label3.id}", text: 'test_label3'
