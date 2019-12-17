@@ -6,6 +6,7 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :labellings, dependent: :destroy
   has_many :labels, through: :labellings
+  accepts_nested_attributes_for :labels, reject_if: proc { |attributes| attributes[:name].blank? }
   paginates_per 10
 
   enum status: {
