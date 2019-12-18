@@ -30,11 +30,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content '伐採1'
         expect(task_list[1]).to have_content '植栽2'
       end
+    end
 
-      it 'タスクが終了期限の昇順で並んでいること' do
+    context '終了期限でソートした場合' do
+      it 'タスクが終了期限の近い順で並んでいること' do
         visit tasks_path
         click_on '終了期限'
-        sleep 1 # ソート後の画面表示を待つ -> テストが通らないため
+        sleep 2 # ソート後の画面表示を待つ -> テストが通らないため
         task_list = all('.task_row')
 
         expect(task_list[0]).to have_content '植栽1'
