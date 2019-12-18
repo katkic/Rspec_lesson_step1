@@ -1,11 +1,13 @@
 # テーブル構造
 
 ## usersテーブル
-| カラム論理名   | カラム物理名 | データ型 |
-| ----------   | -----------| ------- |
-| ユーザーid    | id         | integer |
-| ユーザー名    | name       | string  |
-| メールアドレス | email      | string  |
+| カラム論理名   | カラム物理名    | データ型 |
+| ----------   | -----------   | ------- |
+| ユーザーid    | id            | integer |
+| ユーザー名    | name           | string  |
+| メールアドレス | email          | string |
+| パスワード    | password_digest | string |
+| 管理者権限    | admin          | boolean |
 
 ## tasksテーブル
 | カラム論理名 | カラム物理名 | データ型 |
@@ -15,19 +17,21 @@
 | タスク内容   | discription | text   |
 | ステータス   | status      | integer |
 | 優先順位     | priority    | integer |
+| ユーザーID   | user_id    | integer |
 
 ## labelsテーブル
 | カラム論理名 | カラム物理名 | データ型 |
 | ---------- | -----------| ------- |
 | ラベルid    | id         | integer |
 | ラベル名    | name       | string   |
+| ユーザーID  | user_id    | integer  |
 
 ## labellingsテーブル
 | カラム論理名 | カラム物理名 | データ型 |
 | ---------- | -----------| ------- |
 | ラベリングid | id         | integer |
-| タスクid    | task_id    | string  |
-| ラベルid    | label_id   | string  |
+| タスクid    | task_id    | integer  |
+| ラベルid    | label_id   | integer  |
 
 ***
 # Herokuへのデプロイ方法
